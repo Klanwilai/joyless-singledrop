@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joyless</title>
+  </head>
+  <style>
+    @font-face {
+      font-family: Fonty;
+      src: url(BebasNeue/BebasNeue-Bold.ttf);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      color: black;
+      font-family: Fonty;
+    }
+
+    body {
+      background-color: black;
+    }
+
+  
+
+    h1 {
+      padding-top: 30px;
+      font-size: 80px;
+    }
+
+    .background {
+      z-index: -1;
+      position: absolute;
+      height: 100vh;
+      width: 100vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      background-color: #f9f0c7;
+    }
+
+    .doodle {
+      display: block;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    #doodle-1g {
+      grid-column: 1;
+      grid-row: 1;
+      animation: wiggle 20s ease-in-out infinite;
+    }
+
+    #doodle-2g {
+      grid-column: 2;
+      grid-row: 1;
+      animation: wiggle 15s ease-in-out infinite;
+    }
+
+    #doodle-3g {
+      grid-column: 3;
+      grid-row: 1;
+      animation: wiggle 11s ease-in-out infinite;
+    }
+
+    #doodle-4g {
+      grid-column: 1;
+      grid-row: 2;
+      animation: wiggle 5s ease-in-out infinite;
+    }
+
+    #doodle-5g {
+      grid-column: 3;
+      grid-row: 2;
+      animation: wiggle 9s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+      0% { transform: translate(0,  0px);} 
+      50% { transform: translate(0, 15px);} 
+      100% { transform: translate(0, -0px);} 
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      flex-flow: row;
+      width: 500px;
+      align-items: center;
+      height: 100vh;
+      margin: 0 auto;
+    }
+
+    .counter {
+      opacity: 0.9;
+      font-size: 120px;
+      text-align: center;
+    }
+
+    .release {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .release.show {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #cover {
+      max-height: 400px;
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      box-shadow:rgba(0,0,0,.4) 5px 5px 8px;
+    }
+
+    .release-links {
+      text-align: center;
+    }
+
+    .view {
+      background-color: #f9f0c7;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      content: " ";
+      overflow: hidden;
+    }
+
+    .brand-icon {
+      height: 100px;
+      width: 100px;
+      padding: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .countdown {
+        flex-flow: column;
+        width: 100vw;
+      }
+
+      .countdown p {
+        margin: 0;
+      }
+
+      .doodle {
+        display: none;
+      }
+
+      .counter {
+        font-size: 12vh;
+      }
+
+    }
+  </style>
+
+  <body>
+      <main>
+        <section class="view">
+          <div class="background" id="background">
+            <img src="1.gif" alt="" class="doodle" id="doodle-1g" />
+            <img src="2.gif" alt="" class="doodle" id="doodle-2g" />
+            <img src="3.gif" alt="" class="doodle" id="doodle-3g" />
+            <img src="4.gif" alt="" class="doodle" id="doodle-4g" />
+            <img src="5.gif" alt="" class="doodle" id="doodle-5g" />
+          </div>
+          <div class="countdown" id="countdown">
+            <p class="counter" id="days">00</p>
+            <p class="counter" id="hours">00</p>
+            <p class="counter" id="minutes">00</p>
+            <p class="counter" id="seconds">00</p>
+          </div>
+          <div class="release" id="release">
+            <img src="IMG_0271.GIF" alt="" id="cover" />
+            <div class="link-container">
+              <a href="google.com/s"><img class="brand-icon" src="./Spotify.png" alt="Link to album for Apple music"></a>
+              <a href="google.com/a"><img class="brand-icon" src="./Apple.svg" alt="Link to album for Apple music"></a>
+              <a href="google.com/y"><img class="brand-icon" src="./youtube-brands.svg" alt="Link to album for Apple music"></a>
+              <a href="google.com/t"><img class="brand-icon" src="./Tidal.svg" alt="Link to album for Apple music"></a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script>
+
+      const time = {
+        days: document.getElementById("days"),
+        hours: document.getElementById("hours"),
+        minutes: document.getElementById("minutes"),
+        seconds: document.getElementById("seconds"),
+      };
+
+      const countdown = document.getElementById("countdown");
+      const release = document.getElementById("release");
+      const background = document.getElementById("background");
+      const viewSelector = '.view';
+
+      // Animation class for transition
+      let tl = new TimelineMax({ paused: true });
+
+      tl.to(viewSelector, .2, {
+        width: '100vw',
+        height: '2px',
+        background: '#ffffff',
+        ease: Power2.easeOut
+      })
+      .to(viewSelector, .2, {
+        width: '0',
+        height: '0',
+        background: '#ffffff'
+      });
+      
+
+      // Set the date we're counting down to
+      const countDownDate = new Date("Nov 2, 2020 00:00:01").getTime();
+
+
+      // if(new Date().getTime() < countDownDate) {
+        // Update the count down every 1 second
+        const x = setInterval(() => {
+          // Get today's date and time
+          const now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          const distance = countDownDate - now;
+
+          if (distance < 1000) {
+            clearInterval(x);
+            countdown.style.display = "none";
+            background.style.display = "none";
+            
+            tl.restart();
+            console.log("expired");
+
+            setTimeout(() => {
+              release.classList.add("show");
+              tl.reverse();
+            }, 1000)
+          }
+
+          // Time calculations for days, hours, minutes and seconds
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          time.days.innerHTML = (days > 9 ? days : "0" + days) + ':';
+          time.hours.innerHTML = (hours > 9 ? hours : "0" + hours) + ':';
+          time.minutes.innerHTML = (minutes > 9 ? minutes : "0" + minutes) + ':';
+          time.seconds.innerHTML = (seconds > 9 ? seconds : "0" + seconds) + '.';
+
+        }, 1000);
+      // } else {
+      //   countdown.style.display = "none";
+      //   background.style.display = "none";
+      //   release.style.display = "block";
+      // }
+    </script>
+  </body>
+</html>
