@@ -45,6 +45,8 @@
       display: block;
       align-items: center;
       justify-content: center;
+      height: 70%;
+      width: auto;
       margin: 0 auto;
     }
 
@@ -155,8 +157,29 @@
         margin: 0;
       }
 
-      .doodle {
+      /* .doodle {
         display: none;
+      } */
+      .background {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+      }
+
+      .doodle#doodle-1g {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .doodle#doodle-2g {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      .doodle#doodle-4g {
+        grid-column: 1;
+        grid-row: 4;
+      }
+      .doodle#doodle-5g {
+        grid-column: 3;
+        grid-row: 4;
       }
 
       .counter {
@@ -226,7 +249,7 @@
       
 
       // Set the date we're counting down to
-      const countDownDate = new Date("Nov 2, 2020 00:00:01").getTime();
+      const countDownDate = new Date("Nov 20, 2020 18:06:01").getTime();
 
 
       // if(new Date().getTime() < countDownDate) {
